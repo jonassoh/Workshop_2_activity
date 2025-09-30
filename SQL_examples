@@ -1,0 +1,55 @@
+-- customers
+INSERT INTO customers (name, email, region, created_at) VALUES
+('Ava Reed',     'ava@sample.com',   'NA',   '2025-06-10'),
+('Ben Ortega',   'ben@sample.com',   'NA',   '2025-07-02'),
+('Chloe Park',   'chloe@sample.com', 'EU',   '2025-07-15'),
+('Drew Khan',    'drew@sample.com',  'APAC', '2025-08-01'),
+('Eli Zhang',    'eli@sample.com',   'EU',   '2025-08-05'),
+('Fern Cole',    'fern@sample.com',  'NA',   '2025-08-20');
+
+-- products
+INSERT INTO products (name, category, price_usd) VALUES
+('Skyline Tee',        'Graphic', 25.00),
+('Minimal Tee',        'Plain',   18.00),
+('Retro Pop Tee',      'Graphic', 22.00),
+('Mono Tee',           'Plain',   15.00),
+('Galaxy Limited',     'Limited', 35.00),
+('Palm Limited',       'Limited', 40.00),
+('Sunset Tee',         'Graphic', 24.00),
+('Blank Premium',      'Plain',   20.00);
+
+-- orders
+INSERT INTO orders (customer_id, order_date, status) VALUES
+(1, '2025-08-28 10:12', 'paid'),
+(1, '2025-09-04 09:31', 'paid'),
+(2, '2025-09-05 14:20', 'paid'),
+(2, '2025-09-18 19:05', 'paid'),
+(3, '2025-09-02 08:10', 'refunded'),
+(3, '2025-09-12 12:44', 'paid'),
+(4, '2025-09-07 21:03', 'paid'),
+(5, '2025-09-08 11:55', 'paid'),
+(6, '2025-09-10 15:42', 'paid'),
+(6, '2025-09-26 16:10', 'paid');
+
+-- order_items (order_id, product_id, quantity, unit_price)
+INSERT INTO order_items VALUES
+-- o1 (Ava)
+(1, 1, 1, 25.00), (1, 2, 2, 18.00),
+-- o2 (Ava)
+(2, 5, 1, 35.00),
+-- o3 (Ben)
+(3, 3, 2, 22.00),
+-- o4 (Ben)
+(4, 6, 1, 40.00), (4, 2, 1, 18.00),
+-- o5 (Chloe, refunded)
+(5, 4, 1, 15.00),
+-- o6 (Chloe)
+(6, 7, 1, 24.00), (6, 8, 2, 20.00),
+-- o7 (Drew)
+(7, 1, 1, 25.00), (7, 5, 1, 35.00),
+-- o8 (Eli)
+(8, 2, 3, 18.00),
+-- o9 (Fern)
+(9, 3, 1, 22.00), (9, 4, 1, 15.00), (9, 8, 1, 20.00),
+-- o10 (Fern)
+(10, 6, 1, 40.00);
