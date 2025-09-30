@@ -1,0 +1,10 @@
+--Q1 What is the total revenue and the total number of orders of all time?
+
+
+SELECT
+  COUNT(DISTINCT o.order_id) AS orders,
+  SUM(oi.quantity * oi.unit_price) AS revenue_usd
+FROM orders AS o
+JOIN order_items AS oi 
+ON o.order_id = oi.order_id
+WHERE o.status = 'paid';

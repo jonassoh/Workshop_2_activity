@@ -1,0 +1,16 @@
+--Q4 Flag our VIPs: Find the customers who have spent > $80 (total)
+
+
+WITH spend AS (
+  SELECT o.customer_id,
+         SUM(oi.quantity * oi.unit_price) AS revenue_usd
+  FROM orders o
+  JOIN order_items oi USING (order_id)
+  WHERE o.status = 'paid'
+  GROUP BY o.customer_id
+)
+SELECT c.customer_id, c.name, c.region, s.revenue_usd AS total_spend_usd
+FROM spend s
+JOIN customers c USING (customer_id)
+WHERE s.revenue_usd >= 80
+ORDER BY total_spend_usd DESC;

@@ -1,0 +1,12 @@
+--Q3 Give the revenue by region on September 2025
+
+
+SELECT c.region,
+       SUM(oi.quantity * oi.unit_price) AS revenue_usd
+FROM orders o
+JOIN customers c ON c.customer_id = o.customer_id
+JOIN order_items oi USING (order_id)
+WHERE o.status = 'paid'
+  AND o.order_date >= '2025-09-01' AND o.order_date < '2025-10-01'
+GROUP BY c.region
+ORDER BY revenue_usd DESC;
