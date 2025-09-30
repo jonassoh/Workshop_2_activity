@@ -1,10 +1,17 @@
---Q1 What is the total revenue and the total number of orders of all time?
+--Q2 Which products made the top 3 highest revenue in September 2025?
 
 
-SELECT
-  COUNT(DISTINCT o.order_id) AS orders,
-  SUM(oi.quantity * oi.unit_price) AS revenue_usd
-FROM orders AS o
-JOIN order_items AS oi 
-ON o.order_id = oi.order_id
-WHERE o.status = 'paid';
+WITH paid_sept AS (
+  SELECT oi.product_id, (oi.quantity * oi.unit_price) AS line_total
+  FROM orders o
+  JOIN order_items oi USING (order_id)
+  WHERE o.status = 'paid'
+    AND o.order_date >= '2025-09-01' AND o.order_date < '2025-10-01'
+)
+SELECT p.product_id, p.name, SUM(line_total) AS revenue_usd
+FROM paid_sept ps
+JOIN products p USING (product_id)
+GROUP BY p.product_id, p.name
+ORDER BY revenue_usd DESC
+LIMIT 3;
+
